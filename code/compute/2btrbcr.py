@@ -66,16 +66,12 @@ def compute_btr_bcr(ds, u_name, v_name, T_name, S_name):
     uprime = u - umean
     vprime = v - vmean
 
-    uu = uprime**2
-    vv = vprime**2
-    uv = uprime * vprime
-
     dudx = umean.differentiate("lon") / dx
     dudy = umean.differentiate("lat") / dy
     dvdx = vmean.differentiate("lon") / dx
     dvdy = vmean.differentiate("lat") / dy
 
-    btr = -(uu*dudx + uv*(dvdx+dudy) + vv*dvdy)
+    btr = -( (uprime**2) * dudx + (uprime * vprime) * (dvdx+dudy) + (vprime**2) * dvdy)
     btrm = btr.mean("time")
 
     # ======================
@@ -92,15 +88,13 @@ def compute_btr_bcr(ds, u_name, v_name, T_name, S_name):
     g = 9.81
 
     b = -g * (rho - rho0) / rho0
-    bprime = b - b.mean("time")
+    bmean = b.mean("time")
+    bprime = b - bmean
 
-    ub = uprime * bprime
-    vb = vprime * bprime
+    dbdx = bmean.differentiate("lon") / dx
+    dbdy = bmean.differentiate("lat") / dy
 
-    dbdx = b.mean("time").differentiate("lon") / dx
-    dbdy = b.mean("time").differentiate("lat") / dy
-
-    bcr = -(ub * dbdx + vb * dbdy)
+    bcr = -(uprime * bprime * dbdx + vprime * bprime * dbdy)
     bcrm = bcr.mean("time")
 
     # ======================
