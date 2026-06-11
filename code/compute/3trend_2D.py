@@ -155,56 +155,70 @@ def compute_trend(da):
     return slope, pval, nns, intercept
 
 
-##### sat btr wwt iww wwc curl
-sat = xr.open_dataset('../../results/btr_med_sat.nc')
-ww  = xr.open_dataset('../../results/wind_work_era5.nc')
+# ##### sat btr wwt iww wwc curl
+# sat = xr.open_dataset('../../results/btr_med_sat.nc')
+# ww  = xr.open_dataset('../../results/wind_work_era5.nc')
 
-slope_sat, p_sat, nns_sat, int_sat = compute_trend(sat.btr)
-slope_wwt, p_wwt, nns_wwt, int_wwt = compute_trend(ww.wwt)
-slope_iww, p_iww, nns_iww, int_iww = compute_trend(ww.iww)
-slope_wwc, p_wwc, nns_wwc, int_wwc = compute_trend(ww.wwc)
-slope_curl, p_curl, nns_curl, int_curl = compute_trend(ww.curl)
+# slope_sat, p_sat, nns_sat, int_sat = compute_trend(sat.btr)
+# slope_wwt, p_wwt, nns_wwt, int_wwt = compute_trend(ww.wwt)
+# slope_iww, p_iww, nns_iww, int_iww = compute_trend(ww.iww)
+# slope_wwc, p_wwc, nns_wwc, int_wwc = compute_trend(ww.wwc)
+# slope_curl, p_curl, nns_curl, int_curl = compute_trend(ww.curl)
 
-ds_out = xr.Dataset({
-    "slope_sat": slope_sat, "pvalue_sat": p_sat, "intercept_sat": int_sat, "nns_sat": nns_sat,
-    "slope_wwt": slope_wwt, "pvalue_wwt": p_wwt, "intercept_wwt": int_wwt, "nns_wwt": nns_wwt,
-    "slope_iww": slope_iww, "pvalue_iww": p_iww, "intercept_iww": int_iww, "nns_iww": nns_iww,
-    "slope_wwc": slope_wwc, "pvalue_wwc": p_wwc, "intercept_wwc": int_wwc, "nns_wwc": nns_wwc,
-    "slope_curl": slope_curl, "pvalue_curl": p_curl, "intercept_curl": int_curl, "nns_curl": nns_curl
-})
+# ds_out = xr.Dataset({
+#     "slope_sat": slope_sat, "pvalue_sat": p_sat, "intercept_sat": int_sat, "nns_sat": nns_sat,
+#     "slope_wwt": slope_wwt, "pvalue_wwt": p_wwt, "intercept_wwt": int_wwt, "nns_wwt": nns_wwt,
+#     "slope_iww": slope_iww, "pvalue_iww": p_iww, "intercept_iww": int_iww, "nns_iww": nns_iww,
+#     "slope_wwc": slope_wwc, "pvalue_wwc": p_wwc, "intercept_wwc": int_wwc, "nns_wwc": nns_wwc,
+#     "slope_curl": slope_curl, "pvalue_curl": p_curl, "intercept_curl": int_curl, "nns_curl": nns_curl
+# })
 
-ds_out.to_netcdf('../../results/trends_sat_btr_ww.nc')
-del sat, ww, ds_out
-print("Trends computed for sat btr wwt iww wwc curl")
+# ds_out.to_netcdf('../../results/trends_sat_btr_ww.nc')
+# del sat, ww, ds_out
+# print("Trends computed for sat btr wwt iww wwc curl")
 
-#####glorys btr bcr
-glorys = xr.open_dataset('../../results/001_030_glorys_btr_bcr.nc')
+# #####glorys btr bcr
+# glorys = xr.open_dataset('../../results/001_030_glorys_btr_bcr.nc')
 
-slope_btr, p_btr, nns_btr, int_btr = compute_trend(glorys.btr)
-slope_bcr, p_bcr, nns_bcr, int_bcr = compute_trend(glorys.bcr)
+# slope_btr, p_btr, nns_btr, int_btr = compute_trend(glorys.btr)
+# slope_bcr, p_bcr, nns_bcr, int_bcr = compute_trend(glorys.bcr)
+
+# ds_out = xr.Dataset({
+#     "slope_btr": slope_btr, "pvalue_btr": p_btr, "intercept_btr": int_btr, "nns_btr": nns_btr,
+#     "slope_bcr": slope_bcr, "pvalue_bcr": p_bcr, "intercept_bcr": int_bcr, "nns_bcr": nns_bcr
+# })
+
+# ds_out.to_netcdf('../../results/trends_glorys_btr_bcr.nc')
+# del glorys, ds_out
+# print("Trends computed for glorys btr bcr")
+
+# ##### ensemble btr bcr
+# ensemble = xr.open_dataset('../../results/001_031_ensemble_btr_bcr.nc')
+
+# slope_btr, p_btr, nns_btr, int_btr = compute_trend(ensemble.btr)
+# slope_bcr, p_bcr, nns_bcr, int_bcr = compute_trend(ensemble.bcr)
+
+# ds_out = xr.Dataset({
+#     "slope_btr": slope_btr, "pvalue_btr": p_btr, "intercept_btr": int_btr, "nns_btr": nns_btr,
+#     "slope_bcr": slope_bcr, "pvalue_bcr": p_bcr, "intercept_bcr": int_bcr, "nns_bcr": nns_bcr
+# })
+
+# ds_out.to_netcdf('../../results/trends_ensemble_btr_bcr.nc')
+# print("Trends computed for ensemble btr bcr")
+
+##### medmfc btr bcr
+medmfc = xr.open_dataset('../../results/006_004_medmfc_btr_bcr.nc')
+
+slope_btr, p_btr, nns_btr, int_btr = compute_trend(medmfc.btr)
+slope_bcr, p_bcr, nns_bcr, int_bcr = compute_trend(medmfc.bcr)
 
 ds_out = xr.Dataset({
     "slope_btr": slope_btr, "pvalue_btr": p_btr, "intercept_btr": int_btr, "nns_btr": nns_btr,
     "slope_bcr": slope_bcr, "pvalue_bcr": p_bcr, "intercept_bcr": int_bcr, "nns_bcr": nns_bcr
 })
 
-ds_out.to_netcdf('../../results/trends_glorys_btr_bcr.nc')
-del glorys, ds_out
-print("Trends computed for glorys btr bcr")
-
-##### ensemble btr bcr
-ensemble = xr.open_dataset('../../results/001_031_ensemble_btr_bcr.nc')
-
-slope_btr, p_btr, nns_btr, int_btr = compute_trend(ensemble.btr)
-slope_bcr, p_bcr, nns_bcr, int_bcr = compute_trend(ensemble.bcr)
-
-ds_out = xr.Dataset({
-    "slope_btr": slope_btr, "pvalue_btr": p_btr, "intercept_btr": int_btr, "nns_btr": nns_btr,
-    "slope_bcr": slope_bcr, "pvalue_bcr": p_bcr, "intercept_bcr": int_bcr, "nns_bcr": nns_bcr
-})
-
-ds_out.to_netcdf('../../results/trends_ensemble_btr_bcr.nc')
-print("Trends computed for ensemble btr bcr")
+ds_out.to_netcdf('../../results/trends_medmfc_btr_bcr.nc')
+print("Trends computed for medmfc btr bcr")
 
 
 end_time1 = time.time()
